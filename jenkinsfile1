@@ -33,10 +33,10 @@ pipeline{
     stage('5BuildImagewithDocker'){
       steps{
         sh "docker build -t tesla-app ."
-        sh "docker tag tesla-app mdedika1/tesla-app"
-        sh "docker push mdedika1/tesla-app"
+        sh "docker tag tesla-app mdedika1/tesla-app:latest"
+        sh "docker push mdedika1/tesla-app:latest"
         sh "docker rmi tesla-app"
-        sh "docker rmi mdedika1/tesla-app"
+        sh "docker rmi mdedika1/tesla-app:latest"
       }
     } 
   }
