@@ -20,6 +20,8 @@ pipeline{
      stage('3deploy2k8s'){
       steps{
         sh "ansible kops -m shell -a 'kubectl apply -f tesla.yml' "
+        sh "ansible kops -m shell -a 'kubectl apply -f ingress.yml' "
+        sh "ansible kops -m shell -a 'helm install nginx nginx-ingress/nginx-ingress ' "
        
       }
     }
