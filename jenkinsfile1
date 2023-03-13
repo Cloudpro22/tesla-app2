@@ -1,0 +1,43 @@
+pipeline{
+  agent any 
+  tools {
+    maven "maven3.8.6"
+  }  
+  stages {
+    stage('1GetCode'){
+      steps{
+        sh "echo 'cloning the latest application version' "
+        git "https://github.com/Cloudpro22/tesla-app2"
+      }
+    }
+    stage('2Test+Build'){
+      steps{
+        sh "echo 'running JUnit-test-cases' "
+        sh "echo 'testing must passed to create artifacts ' "
+        sh "mvn clean package"
+      }
+    }
+
+     stage('3codeQuality'){
+      steps{
+           sh "mvn sonar:sonar"
+    }
+    }
+
+    stage('4uploadtoNexus'){
+      steps{
+        sh "mvn deploy"
+      }
+    } 
+
+    stage('5BuildImagewithDocker'){
+      steps{
+        sh "docker build -t tesla-app ."
+        sh "docker tag tesla-app mdedika1/tesla-app"
+        sh "docker push mdedika1/tesla-app"
+        sh "docker rmi tesla-app"
+        sh "docker rmi mdedika1/tesla-app"
+      }
+    } 
+  }
+}
