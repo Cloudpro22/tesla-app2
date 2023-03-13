@@ -17,5 +17,12 @@ pipeline{
       }
     }
     
+     stage('3deploy2k8s'){
+      steps{
+        sh "ansible kops -m shell -a 'kubectl apply -f tesla.yml' "
+       
+      }
+    }
+    
     }
     }
