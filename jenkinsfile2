@@ -1,7 +1,7 @@
 pipeline{
   agent { label 'ansible' } 
  
-    stage('check memory'){
+    stage('1checkmemory'){
       steps{
         sh "ansible localhost -m shell -a 'free -m' "
        
