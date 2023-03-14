@@ -23,6 +23,13 @@ pipeline{
            sh "mvn sonar:sonar"
     }
     }
+    stage("Quality Gate status check") {
+            steps {
+              timeout(time: 1, unit: 'MINUTES') {
+                waitForQualityGate abortPipeline: true
+              }
+            }
+          }
 
     stage('4uploadtoNexus'){
       steps{
