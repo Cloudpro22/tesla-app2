@@ -5,7 +5,7 @@ pipeline{
  stages {
     stage('1checkmemory'){
       steps{
-        sh "ansible localhost -m shell -a 'free -m' "
+        sh "ansible kops -m shell -a 'free -m' "
        
       }
     }
