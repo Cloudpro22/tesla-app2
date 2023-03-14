@@ -21,6 +21,7 @@ pipeline{
       steps{
         sh "ansible kops -m shell -a 'kubectl apply -f tesla.yml' "
         sh "ansible kops -m shell -a 'kubectl apply -f ingress.yml' "
+        sh "ansible kops -m shell -a 'helm uninstall nginx' "
         sh "ansible kops -m shell -a 'helm install nginx nginx-ingress/nginx-ingress ' "
        
       }
